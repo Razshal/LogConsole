@@ -1,0 +1,124 @@
+﻿<UserControl x:Class="LogConsole.ConsoleView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LogConsole"
+             xmlns:fa="http://schemas.fontawesome.com/icons/svg"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="700">
+
+    <UserControl.Resources>
+        <SolidColorBrush Color="White" x:Key="TextMainColorBrush"/>
+        <SolidColorBrush Color="#00f" x:Key="ButtonHoverColorBrush"/>
+        <SolidColorBrush Color="#06000c" x:Key="MainBackgroundColorBrush"/>
+        <SolidColorBrush Color="#232323" x:Key="HeaderColorBrush"/>
+        <SolidColorBrush Color="#000" x:Key="ButtonHighlightColorBrush"/>
+
+        <Style TargetType="fa:ImageAwesome">
+            <Setter Property="Height" Value="14"/>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="FilterDesc">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
+        </Style>
+
+        <Style TargetType="Button" x:Key="ConsoleButtonBase">
+            <Setter Property="Foreground" Value="{StaticResource TextMainColorBrush}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Margin" Value="4,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" Padding="2">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Transparent"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Button" BasedOn="{StaticResource ConsoleButtonBase}"/>
+
+        <Style TargetType="Button" x:Key="FilterButton" BasedOn="{StaticResource ConsoleButtonBase}">
+            <Setter Property="Height" Value="32"/>
+        </Style>
+
+        <Style TargetType="Border" x:Key="ButtonBorder">
+            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="Padding" Value="6"/>
+            <Setter Property="Background" Value="{StaticResource ButtonHighlightColorBrush}"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Border Background="{StaticResource MainBackgroundColorBrush}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Background="{StaticResource HeaderColorBrush}" Height="35">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <WrapPanel Grid.Column="0" VerticalAlignment="Center">
+                    <Button Style="{StaticResource FilterButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:ImageAwesome Icon="Solid_TriangleExclamation" PrimaryColor="Red"/>
+                            <TextBlock Style="{StaticResource FilterDesc}" Text="Error"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource FilterButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:ImageAwesome Icon="Solid_TriangleExclamation" PrimaryColor="OrangeRed"/>
+                            <TextBlock Style="{StaticResource FilterDesc}" Text="Warning"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource FilterButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:ImageAwesome Icon="Solid_CircleExclamation" PrimaryColor="#1e90ff"/>
+                            <TextBlock Style="{StaticResource FilterDesc}" Text="Info"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource FilterButton}">
+                        <Border Style="{StaticResource ButtonBorder}">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:ImageAwesome Icon="Solid_Bug" PrimaryColor="#808080"/>
+                                <TextBlock Style="{StaticResource FilterDesc}" Text="Debug"/>
+                            </StackPanel>
+                        </Border>
+                    </Button>
+                </WrapPanel>
+                <WrapPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Button>
+                        <fa:ImageAwesome Icon="Regular_Clock" PrimaryColor="White"/>
+                    </Button>
+                    <Button>
+                        <fa:ImageAwesome Icon="Regular_TrashCan" PrimaryColor="White"/>
+                    </Button>
+                </WrapPanel>
+            </Grid>
+
+            <ListView Grid.Column="1" Background="Transparent" BorderBrush="Transparent"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                      />
+
+        </Grid>
+    </Border>
+</UserControl>
